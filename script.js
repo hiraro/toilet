@@ -1,7 +1,6 @@
 const WS_SERVER_URL = "ws://localhost";
 
 var webSocket = null;
-var myName = null;
 
 // open websocket connection
 function openWebSocketConnection() {
@@ -85,7 +84,7 @@ function onStatusMessage(msg) {
   }
 }
 */
-function onJoinedSuccessful(msg) {
+function onJoinedSuccessfully(msg) {
     changePhoneImage(msg.status.image)
 }
 
@@ -138,7 +137,6 @@ function sendJoinMessage() {
 
 // ステータス表示追加
 function addDamageStatusLine(userName, damage, isAlive) {
-    // TODO dom要素追加
     var logger = document.getElementById("log");
     var log = document.createElement("p");
     log.classList.add("attack-log");
@@ -149,15 +147,13 @@ function addDamageStatusLine(userName, damage, isAlive) {
 
 // でんわの画像を変える
 function changePhoneImage(image) {
-    // TODO 画像要素のsrc変える
     var iPhone = document.getElementById("iphone");
     iPhone.setAttribute("src", image);
 }
 
 // 自分の名前取得
 function getMyName() {
-    // TODO: inputからとってくる
-    return document.getElementById("username").value; 
+    return document.getElementById("username").value;
 }
 
 
