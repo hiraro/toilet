@@ -31,12 +31,18 @@ def damage(weapon_name)
   end
 
   random = Random.new
-  damage * random(75..100) / 100
+  damage * random.rand(75..100) / 100
 end
 
 class Toilet < Sinatra::Application
   set :hp, 1000
   set :sockets, []
+
+  def initialize
+    super
+
+    @hp = 1000
+  end
 
   get '/' do
     halt 404 unless request.websocket?
@@ -48,29 +54,31 @@ class Toilet < Sinatra::Application
       end
 
       ws.onmessage do |message|
-        request = JSON.parse(message, symbolize_keys: true)
-        type = response.dig(:type)
+        request = JSON.parse(message, { symbolize_names: true })
+        p request
+        type = request.dig(:type)
 
         case type
         when "attack"
-          if response.dig(:attack, :name) && response.dig(:attack, :weapon)
-            attacker = response[:attack][:name]
-            weapon = response[:attack][:weapon]
-            damage = damage(weapon)
-            set settings.hp, settings.hp - damage
+          if request.dig(:attack, :name) && request.dig(:attack, :weapon)
+            attacker = request[:attack][:name]
+            weapon = request[:attack][:weapon]
+            damage_occured = damage(weapon)
+            @hp -= damage_occured
 
             response_obj = {
               type: "status",
               status: {
                 alive: true,
-                image: image(damage),
+                image: image(damage_occured),
                 last_attack: {
                   name: attacker,
-                  damage: damage
+                  damage: damage_occured
                 }
               }
             }
-            response = JSON.generate(response)
+            p response_obj
+            p response = JSON.generate(response_obj)
 
             EM.next_tick {
               settings.sockets.each do |socket|
@@ -80,11 +88,11 @@ class Toilet < Sinatra::Application
           end
         end
       end
+
+      ws.onclose do
+        settings.sockets.delete(ws)
+      end
     end
 
-    ws.onclose do |ws|
-      settings.sockets.delete(ws)
-    end
   end
-end
 end
