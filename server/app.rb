@@ -3,6 +3,21 @@ require 'json'
 require 'sinatra'
 require 'sinatra-websocket'
 
+def image(damage)
+  "/img/iphone/cracked.jpg" if damage < 0
+
+  case damage
+  when 1..200
+    "/img/iphone/001.png"
+  when 201..500
+    "/img/iphone/002.png"
+  when 501..800
+    "/img/iphone/003.png"
+  when 801..1000
+    "/img/iphone/004.png"
+  end
+end
+
 def damage(weapon_name)
   100
 end
