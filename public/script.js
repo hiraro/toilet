@@ -1,4 +1,4 @@
-const WS_SERVER_URL = "ws://localhost";
+const WS_SERVER_URL = "ws://" + window.location.host + ":3000";
 
 var webSocket = null;
 
@@ -69,8 +69,8 @@ function onMessage(event) {
 }
 */
 function onStatusMessage(msg) {
-    changePhoneImage(msg.image);
-    addDamageStatusLine(msg.name, msg.damage, msg.alive);
+    changePhoneImage(msg.status.image);
+    addDamageStatusLine(msg.status.last_attack.name, msg.status.last_attack.damage, msg.status.alive);
 }
 
 
