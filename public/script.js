@@ -1,4 +1,4 @@
-const WS_SERVER_URL = "ws://" + window.location.host + ":3000";
+const WS_SERVER_URL = "ws://" + window.location.host;
 
 var webSocket = null;
 
