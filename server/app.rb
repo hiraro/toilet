@@ -23,6 +23,7 @@ def damage(weapon_name)
 end
 
 class Toilet < Sinatra::Application
+  set :hp, 1000
   set :clients, []
 
   get '/' do
@@ -44,6 +45,7 @@ class Toilet < Sinatra::Application
             attacker = response[:attack][:name]
             weapon = response[:attack][:weapon]
             damage = damage(weapon)
+            set settings.hp, settings.hp - damage
 
             response_obj = {
               type: "status",
