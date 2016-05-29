@@ -8,13 +8,13 @@ def image(damage)
 
   case damage
   when 1..200
-    "/img/iphone/001.png"
+    "/img/iphone/001.jpg"
   when 201..500
-    "/img/iphone/002.png"
+    "/img/iphone/002.jpg"
   when 501..800
-    "/img/iphone/003.png"
+    "/img/iphone/003.jpg"
   when 801..1000
-    "/img/iphone/004.png"
+    "/img/iphone/004.JPG"
   end
 end
 
@@ -50,6 +50,14 @@ class Toilet < Sinatra::Application
     request.websocket do |ws|
       ws.onopen do
         settings.sockets << ws
+        response_obj = {
+          type: "status",
+          status: {
+            alive: true,
+            image: image(@hp)
+          }
+        }
+        response = JSON.generate(response_obj)
 
       end
 
@@ -70,14 +78,13 @@ class Toilet < Sinatra::Application
               type: "status",
               status: {
                 alive: true,
-                image: image(damage_occured),
+                image: image(@hp),
                 last_attack: {
                   name: attacker,
                   damage: damage_occured
                 }
               }
             }
-            p response_obj
             p response = JSON.generate(response_obj)
 
             EM.next_tick {
