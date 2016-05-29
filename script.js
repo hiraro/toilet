@@ -167,3 +167,9 @@ $("#join").on("click", function() {
     openWebSocketConnection();
     sendJoinMessage();
 });
+
+Array.from(document.getElementsByClassName("weapon")).forEach(function(elm) {
+  elm.addEventListener("click", function(e) {
+    sendAttackMessage(e.target.id);
+  });
+});
