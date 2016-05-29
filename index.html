@@ -6,9 +6,54 @@
     <title></title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
+    <style>
+      *, *:after, *:before {
+        box-sizing: content-box;
+      }
+      img#iphone, div#weapon_container, div#log {
+        display: block;
+        vertical-align: top;
+        float: left;
+      }
+      img#iphone {
+        height: 800px;
+        width: 540px;
+        margin: 20px auto;
+        
+      }
+      img.weapon {
+        height: 100px;
+        width: auto;
+        margin: 50px auto;
+        display: block;
+        cursor: pointer;
+      }
+      img.weapon:hover {
+        background-color: #e3e3e3;
+      }
+      div#weapon_container {
+        margin: 30px auto;
+      }
+      div#log {
+        overflow-y: auto;
+        height: 800px;
+        width: 20em;
+        margin: 20px 50px;
+      }
+    </style>
 </head>
 
 <body>
+    <div><label>なまえ</label><input type="text" id="username"><input type="button" id="join" value="参加"></div>
+    <img id="iphone"></img>
+    <div id="weapon_container">
+      <img class="weapon" id="shoes" src="./img/shoes.png"></img>
+      <img class="weapon" id="geta" src="./img/geta.png"></img>
+      <img class="weapon" id="hammer" src="./img/hammer.png"></img>
+      <img class="weapon" id="powerhammer" src="./img/powerhammer.png"></img>
+    </div>
+    <div id="log">
+    </div>
 </body>
 
 </html>
