@@ -3,7 +3,8 @@ require 'json'
 require 'sinatra'
 require 'sinatra-websocket'
 
-class Client
+def damage(weapon_name)
+  100
 end
 
 class Toilet < Sinatra::Application
@@ -15,17 +16,46 @@ class Toilet < Sinatra::Application
     request.websocket do |ws|
       ws.onopen do
         settings.clients << ws
+
       end
 
       ws.onmessage do |message|
-        p message
-        settings.sockets.each do |socket|
+        request = JSON.parse(message, symbolize_keys: true)
+        type = response.dig(:type)
+
+        case type
+        when "attack"
+          if response.dig(:attack, :name) && response.dig(:attack, :weapon)
+            attacker = response[:attack][:name]
+            weapon = response[:attack][:weapon]
+            damage = damage(weapon)
+
+            response_obj = {
+              type: "status",
+              status: {
+                alive: true,
+                image: image(damage),
+                last_attack: {
+                  name: attacker,
+                  damage: damage
+                }
+              }
+            }
+            response = JSON.generate(response)
+
+            EM.next_tick {
+              settings.sockets.each do |socket|
+                socket.send(response)
+              end
+            }
+          end
         end
       end
+    end
 
-      ws.onclose do |ws|
-        settings.sockets.delete(ws)
-      end
+    ws.onclose do |ws|
+      settings.sockets.delete(ws)
     end
   end
+end
 end
