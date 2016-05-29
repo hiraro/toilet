@@ -1,4 +1,4 @@
-const WS_SERVER_URL = "ws://localhost";
+const WS_SERVER_URL = "ws://localhost:3000";
 
 var webSocket = null;
 
