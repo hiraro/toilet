@@ -57,7 +57,6 @@ function onMessage(event) {
 
 /*
 他のユーザがこうげきしたとき
-
 {
   "type": "status",
   "status": {
@@ -78,7 +77,6 @@ function onStatusMessage(msg) {
 
 /*
 送ったjoinメッセージへのレスポンスがきたとき
-
 {
   "type": "join",
   "status": {
@@ -98,7 +96,6 @@ function onJoinedSuccessful(msg) {
 
 /*
 アタックしたメッセージ
-
 {
     type: "attack",
     attack: {
@@ -122,13 +119,12 @@ function sendAttackMessage(weapon) {
 
 /*
 参加するときにサーバーに送るメッセージ
-
 {
     type: "join",
     name: "myname"
 }
 */
-function sendAttackMessage(weapon) {
+function sendJoinMessage() {
     var msg = {
         "type": "join",
         "name": getMyName()
@@ -143,22 +139,31 @@ function sendAttackMessage(weapon) {
 // ステータス表示追加
 function addDamageStatusLine(userName, damage, isAlive) {
     // TODO dom要素追加
+    var logger = document.getElementById("log");
+    var log = document.createElement("p");
+    log.classList.add("attack-log");
+    log.textContent = `${userName} : ${damage}`;
+    logger.appendChild(log);
+    (new Audio("./sound/crash.wav")).play();
 }
 
 // でんわの画像を変える
 function changePhoneImage(image) {
     // TODO 画像要素のsrc変える
+    var iPhone = document.getElementById("iphone");
+    iPhone.setAttribute("src", image);
 }
 
 // 自分の名前取得
 function getMyName() {
     // TODO: inputからとってくる
+    return document.getElementById("username").value; 
 }
 
 
 
 /* ### 名前確定時の処理 ### */
-$("#foo").on("click", function() {
-    getMyName();
+$("#join").on("click", function() {
     openWebSocketConnection();
+    sendJoinMessage();
 });
