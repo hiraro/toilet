@@ -108,7 +108,7 @@ function sendAttackMessage(weapon) {
         "type": "attack",
         "attack": {
             "name": getMyName(),
-            "wepon": weapon
+            "weapon": weapon
         }
     };
     webSocket.send(JSON.stringify(msg));
