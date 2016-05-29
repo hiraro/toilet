@@ -50,6 +50,14 @@ class Toilet < Sinatra::Application
     request.websocket do |ws|
       ws.onopen do
         settings.sockets << ws
+        response_obj = {
+          type: "status",
+          status: {
+            alive: true,
+            image: image(@hp)
+          }
+        }
+        response = JSON.generate(response_obj)
 
       end
 
@@ -70,15 +78,14 @@ class Toilet < Sinatra::Application
               type: "status",
               status: {
                 alive: true,
-                image: image(damage_occured),
+                image: image(@hp),
                 last_attack: {
                   name: attacker,
                   damage: damage_occured
                 }
               }
             }
-            p response_obj
-            p response = JSON.generate(response_obj)
+            response = JSON.generate(response_obj)
 
             EM.next_tick {
               settings.sockets.each do |socket|
