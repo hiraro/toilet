@@ -8,13 +8,13 @@ def image(damage)
 
   case damage
   when 1..200
-    "/img/iphone/001.png"
+    "/img/iphone/001.jpg"
   when 201..500
-    "/img/iphone/002.png"
+    "/img/iphone/002.jpg"
   when 501..800
-    "/img/iphone/003.png"
+    "/img/iphone/003.jpg"
   when 801..1000
-    "/img/iphone/004.png"
+    "/img/iphone/004.JPG"
   end
 end
 
@@ -85,7 +85,7 @@ class Toilet < Sinatra::Application
                 }
               }
             }
-            response = JSON.generate(response_obj)
+            p response = JSON.generate(response_obj)
 
             EM.next_tick {
               settings.sockets.each do |socket|
