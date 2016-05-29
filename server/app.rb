@@ -19,19 +19,31 @@ def image(damage)
 end
 
 def damage(weapon_name)
-  100
+  case weapon_name
+  when "shoes"
+    damage = 10
+  when "geta"
+    damage = 20
+  when "hammer"
+    damage = 60
+  when "powerhammer"
+    damage = 100
+  end
+
+  random = Random.new
+  damage * random(75..100) / 100
 end
 
 class Toilet < Sinatra::Application
   set :hp, 1000
-  set :clients, []
+  set :sockets, []
 
   get '/' do
     halt 404 unless request.websocket?
 
     request.websocket do |ws|
       ws.onopen do
-        settings.clients << ws
+        settings.sockets << ws
 
       end
 
