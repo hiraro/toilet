@@ -53,7 +53,7 @@ class Toilet < Sinatra::Application
         response_obj = {
           type: "status",
           status: {
-            alive: true,
+            alive: (@hp >= 0),
             image: image(@hp)
           }
         }
@@ -77,7 +77,7 @@ class Toilet < Sinatra::Application
             response_obj = {
               type: "status",
               status: {
-                alive: true,
+                alive: (@hp >= 0),
                 image: image(@hp),
                 last_attack: {
                   name: attacker,
@@ -85,7 +85,8 @@ class Toilet < Sinatra::Application
                 }
               }
             }
-            p response = JSON.generate(response_obj)
+            response = JSON.generate(response_obj)
+            p @hp
 
             EM.next_tick {
               settings.sockets.each do |socket|
