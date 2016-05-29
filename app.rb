@@ -3,10 +3,10 @@ require 'json'
 require 'sinatra'
 require 'sinatra-websocket'
 
-def image(damage)
-  "/img/iphone/cracked.jpg" if damage < 0
+def image(hp)
+  return "/img/iphone/cracked.jpg" if hp < 0
 
-  case damage
+  case hp
   when 1..200
     "/img/iphone/001.jpg"
   when 201..500
