@@ -45,7 +45,7 @@ class Toilet < Sinatra::Application
   end
 
   get '/' do
-    halt 404 unless request.websocket?
+    send_file File.join(settings.public_folder, 'index.html') unless request.websocket?
 
     request.websocket do |ws|
       ws.onopen do
