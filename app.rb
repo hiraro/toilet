@@ -8,7 +8,7 @@ def image(hp)
 
   case hp
   when 1..200
-    "/img/iphone/004.jpg"
+    "/img/iphone/004.JPG"
   when 201..500
     "/img/iphone/003.jpg"
   when 501..800
