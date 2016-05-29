@@ -108,7 +108,7 @@ function sendAttackMessage(weapon) {
         "type": "attack",
         "attack": {
             "name": getMyName(),
-            "wepon": weapon
+            "weapon": weapon
         }
     };
     webSocket.send(JSON.stringify(msg));
@@ -161,7 +161,10 @@ function getMyName() {
 /* ### 名前確定時の処理 ### */
 $("#join").on("click", function() {
     openWebSocketConnection();
-    sendJoinMessage();
+    console.log("join message will send after 3000 ms");
+    setTimeout(function() {
+        sendJoinMessage();
+    }, 3000);
 });
 
 Array.from(document.getElementsByClassName("weapon")).forEach(function(elm) {
