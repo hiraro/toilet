@@ -141,7 +141,13 @@ function addDamageStatusLine(userName, damage, isAlive) {
     var log = document.createElement("p");
     log.classList.add("attack-log");
     log.textContent = `${userName} : ${damage}`;
-    logger.appendChild(log);
+    logger.insertBefore(log, logger.firstChild);
+    if(!isAlive) {
+      let log = document.createElement("p");
+      log.classList.add("attack-log");
+      log.textContent = `${userName} is crashed the phone!`;
+      logger.insertBefore(log, logger.firstChild);
+    }
     (new Audio("./sound/crash.wav")).play();
 }
 
