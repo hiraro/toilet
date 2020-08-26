@@ -7,8 +7,8 @@ GEM
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     eventmachine (1.2.0.1)
-    rack (1.6.4)
-    rack-protection (1.5.3)
+    rack (1.6.13)
+    rack-protection (1.5.5)
       rack
     sinatra (1.4.7)
       rack (~> 1.5)
